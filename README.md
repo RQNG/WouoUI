@@ -1,10 +1,11 @@
 # WouoUI
 模仿稚晖君MonoUI风格的超丝滑菜单，使用EC11旋转编码器控制。
-有四个版本，适配三种固定分辨率的屏幕，以及一种仅保留列表和弹窗相关代码，支持任意行高，任意字高，任意屏幕分辨率的通用版本。
+有四个版本，适配三种固定分辨率的屏幕，以及一种仅保留列表和弹窗相关代码，支持任意行高，任意字高，任意屏幕分辨率的通用版本，通用版本目前有一个模仿osu!选歌界面的分支。
 * 128_128版本：基本上复刻了UltraLink的界面。
 * 128_64版本：在128_128版本的基础上，重新设计主界面和电压测量界面，适配了列表，关于本机界面改为列表类。
 * 128_32版本：在128_64版本的基础上，重新设计主界面和电压测量界面。
 * 通用版本：仅保留列表类和弹窗代码，主菜单改为列表类。注意，所有版本的列表类代码都相同，适配了屏幕高度与行高度不能整除的情况，只需要简单定义好参数，使用与参数匹配的字体和屏幕即可适配所有情况，自带一套超窄行高度的参数用于测试。
+* osu版本：继承了通用的特性，即支持任意行高，任意字高，任意屏幕分辨率，增加支持调整抛物线曲率。
 
 # 功能 
 * 全部使用非线性的平滑缓动动画，包括列表，弹窗，甚至进度条
@@ -45,8 +46,53 @@
 ![image](https://github.com/RQNG/WouoUI/assets/115459678/0fae540a-bc7e-43e0-8936-60f22ae3733f)
 演示视频：https://www.bilibili.com/video/BV1wo4y1474K/
 
+* osu版本128_128效果演示：
+![osu_128_128](https://github.com/RQNG/WouoUI/assets/115459678/b36274a3-51ac-4410-9c9b-a98ac0f01f6d)
+演示视频：https://www.bilibili.com/video/BV1Mh4y1s7mB/
+
+* osu版本128_32效果演示：
+![osu_128_32](https://github.com/RQNG/WouoUI/assets/115459678/3a3762a9-4c4c-41e1-9476-58925d9f074e)
+演示视频：https://www.bilibili.com/video/BV1r24y1A7YF/
+
 # 参考
 * 旋钮：https://zhuanlan.zhihu.com/p/453130384
-* B站：路徍要什么自行车：在线仿真：https://wokwi.com/projects/350306511434547796，https://www.bilibili.com/video/BV1HA411S7pv/
-* Github：createskyblue：OpenT12：https://github.com/createskyblue/OpenT12
-* Github：peng-zhihui：OpenHeat：https://github.com/peng-zhihui/OpenHeat
+* UI：
+  1. B站用户，路徍要什么自行车：https://www.bilibili.com/video/BV1HA411S7pv/
+  2. Github，createskyblue，OpenT12：https://github.com/createskyblue/OpenT12
+  3. Github，peng-zhihui，OpenHeat：https://github.com/peng-zhihui/OpenHeat
+  4. 知名音乐播放器：osu!
+
+# 更新
+## WouoUI
+
+### v 2.0
+* UI 流畅度优化，实现了优雅的平滑动画，动画算法被优化到只有两行。
+* UI 架构优化，实现了独立弹窗，白天和黑暗模式，单选和多选框，开关等。
+* 删除主界面列表菜单风格，增加主界面图标动画可选项。
+* 选择框跳转动画改为宽度和竖直方向位置都从当前位置到上一级选中位置平滑过渡。
+* 增加动画速度可调区间。10 ~ 100。
+* 修复循环模式选择框在跳转动画未结束前，选择项后退时，列表与屏幕错位的问题。
+* 修复选择框在选择滚动过快时，滚出屏幕外的问题。
+* 增加独立弹窗动画，背景虚化开关功能。
+* 重新设计电压测试页，增加波形显示功能，现在可以同时观察数值和波形。
+
+### v 1.1
+* 重构代码，只保存路径和选择框所在位置，分页面类型定义变量。
+* 增加图标和列表两种主界面风格。
+* 支持128×64，128×32两种主流OLED屏幕分辨率，只需要替换驱动即可。
+* 增加列表展开动画效果。
+* 增加选择框展开和跳转动画效果。
+* 增强动画速度的可调精度。
+* 增加循环模式。
+* 增加旋钮方向反转选项。
+
+### v 1.0
+* UI从Rapid-trigger-minipad项目中独立出来。
+
+## WouoUI - osu
+
+### v 1.0
+* WouoUI v 2.0 通用版本分支，简单模仿了osu选歌界面列表动效。
+* 继承了通用的特性，即支持任意行高，任意字高，任意屏幕分辨率，增加支持调整抛物线曲率。
+
+
