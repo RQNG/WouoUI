@@ -1,6 +1,6 @@
 
 /*
-  WouoUI - osu 是 WouoUI 通用版本的分支，模仿 osu! 这款音乐播放器的选歌界面，当前版本 v1.0
+  WouoUI - osu 是 WouoUI 通用版本的分支，模仿 osu! 这款音乐播放器的选歌界面，当前版本 v1.1
   
   此版本继承了通用的特性，即支持任意行高，任意字高，任意屏幕分辨率，这个版本增加支持调整抛物线曲率
 
@@ -159,20 +159,20 @@ M_SELECT knob_menu[]
 M_SELECT krf_menu[]
 {
   {"[ Rotate Function ]"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Disable"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Volume"},
   {"= Brightness"},
-  {"-----------------------------"},
+  {"--------------------------"},
 };
 
 M_SELECT kpf_menu[]
 {
   {"[ Press Function ]"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Disable"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= A"},
   {"= B"},
   {"= C"},
@@ -199,7 +199,7 @@ M_SELECT kpf_menu[]
   {"= X"},
   {"= Y"},
   {"= Z"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= 0"},
   {"= 1"},
   {"= 2"},
@@ -210,7 +210,7 @@ M_SELECT kpf_menu[]
   {"= 7"},
   {"= 8"},
   {"= 9"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Esc"},
   {"= F1"},
   {"= F2"},
@@ -224,7 +224,7 @@ M_SELECT kpf_menu[]
   {"= F10"},
   {"= F11"},
   {"= F12"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Left Ctrl"},
   {"= Left Shift"},
   {"= Left Alt"},
@@ -233,24 +233,24 @@ M_SELECT kpf_menu[]
   {"= Right Shift"},
   {"= Right Alt"},
   {"= Right Win"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Caps Lock"},
   {"= Backspace"},
   {"= Return"},
   {"= Insert"},
   {"= Delete"},
   {"= Tab"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Home"},
   {"= End"},
   {"= Page Up"},
   {"= Page Down"},
-  {"-----------------------------"},
+  {"--------------------------"},
   {"= Up Arrow"},
   {"= Down Arrow"},
   {"= Left Arrow"},
   {"= Right Arrow"},
-  {"-----------------------------"},
+  {"--------------------------"},
 };
 
 M_SELECT setting_menu[]
@@ -274,7 +274,7 @@ M_SELECT setting_menu[]
 M_SELECT about_menu[]
 {
   {"[ WouoUI - osu ]"},
-  {"- Version: v1.0"},
+  {"- Version: v1.1"},
   {"- Board: STM32F103"},
   {"- Ram: 20k"},
   {"- Flash: 64k"},
@@ -852,7 +852,7 @@ void list_show(struct MENU arr[], uint8_t ui_index)
     {
       if (ui.param[LIST_UFD]) list.temp = i * list.y - LIST_LINE_H * ui.select[ui.layer];
       else list.temp = (i - ui.select[ui.layer]) * list.y;
-      list.curve = (ui.param[LIST_CUR] / 100.0) * pow(list.temp, 2);
+      list.curve = (ui.param[LIST_CUR] / 1000.0) * pow(list.temp, 2);
       list_draw_text_and_check_box(arr, i);
     }
     if (list.y == list.y_trg) 
@@ -864,7 +864,7 @@ void list_show(struct MENU arr[], uint8_t ui_index)
   else for (int i = 0; i < ui.num[ui_index]; ++ i)
   {
     list.temp = LIST_LINE_H * i + list.y;
-    list.curve = (ui.param[LIST_CUR] / 100.0) * pow(list.temp, 2);
+    list.curve = (ui.param[LIST_CUR] / 1000.0) * pow(list.temp, 2);
     list_draw_text_and_check_box(arr, i);
   }
 
@@ -1191,7 +1191,7 @@ void setting_proc()
         
         //弹出窗口，参数初始化：标题，参数名，参数值，最大值，最小值，步长，背景列表名，背景列表标签
         case 1:   window_value_init("Disp Bri", DISP_BRI, &ui.param[DISP_BRI],  255,  0,  5, setting_menu, M_SETTING);  break;
-        case 2:   window_value_init("List Cur", LIST_CUR, &ui.param[LIST_CUR],   10,  0,  1, setting_menu, M_SETTING);  break;
+        case 2:   window_value_init("List Cur", LIST_CUR, &ui.param[LIST_CUR],  100,  0,  1, setting_menu, M_SETTING);  break;
         case 3:   window_value_init("List Ani", LIST_ANI, &ui.param[LIST_ANI],  100, 10,  1, setting_menu, M_SETTING);  break;
         case 4:   window_value_init("Win Ani",  WIN_ANI,  &ui.param[WIN_ANI],   100, 10,  1, setting_menu, M_SETTING);  break;
         case 5:   window_value_init("Fade Ani", FADE_ANI, &ui.param[FADE_ANI],  255,  0,  1, setting_menu, M_SETTING);  break;
