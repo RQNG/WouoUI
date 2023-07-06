@@ -1,0 +1,4 @@
+[submodule "Third-party-design/Emulator/u8g2"]
+	path = Third-party-design/Emulator/u8g2
+	url = https://github.com/liux-pro/u8g2.git
+	branch = patch-1
