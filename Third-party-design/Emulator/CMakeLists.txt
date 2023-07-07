@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.24)
 project(WouoUI)
 
+set(CMAKE_C_COMPILER "cc")
+set(CMAKE_CXX_COMPILER "c++")
+set(CMAKE_NO_SYSTEM_FROM_IMPORTED YES)
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
