@@ -277,7 +277,7 @@ M_SELECT setting_menu[]
 M_SELECT about_menu[]
 {
   {"WouoUI"},
-  {"v2.1"},
+  {"v2.2"},
   {"Board: STM32F103"},
   {"Ram: 20k"},
   {"Flash: 64k"},
@@ -960,8 +960,11 @@ void layer_init_out()
 //动画函数
 void animation(float *a, float *a_trg, uint8_t n)
 {
-  if (fabs(*a - *a_trg) < 0.15) *a = *a_trg;
-  if (*a != *a_trg) *a += (*a_trg - *a) / (ui.param[n] / 10.0);
+  if (*a != *a_trg)
+  {
+    if (fabs(*a - *a_trg) < 0.15) *a = *a_trg;
+    else *a += (*a_trg - *a) / (ui.param[n] / 10.0);
+  }
 }
 
 //消失函数
