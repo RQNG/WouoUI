@@ -9,9 +9,9 @@
     * 分辨率 128 * 32 ：在 128 * 64 分辨率的基础上，主界面只保留图标，电压测量页重新设计
     * 通用版本：仅保留列表，主菜单也改为列表，删除电压测量页和与列表无关的动画（保留弹窗效果），经过简单修改可以适配任何分辨率，任何行高度的情况
 
-  WouoUI v2.1 更新内容：
+  WouoUI v2.2 更新内容：
 
-    * 修复EC11旋钮使界面卡死的问题，感谢 GitHub 安红豆 提供的线索。
+    * 优化动画函数，动画结束后不会再进行无意义的浮点数计算
 
   WouoUI v2 功能：
 
@@ -259,7 +259,7 @@ M_SELECT setting_menu[]
 M_SELECT about_menu[]
 {
   {"[ WouoUI ]"},
-  {"- Version: v2.1"},
+  {"- Version: v2.2"},
   {"- Board: STM32F103"},
   {"- Ram: 20k"},
   {"- Flash: 64k"},
@@ -874,8 +874,11 @@ void layer_init_out()
 //动画函数
 void animation(float *a, float *a_trg, uint8_t n)
 {
-  if (fabs(*a - *a_trg) < 0.15) *a = *a_trg;
-  if (*a != *a_trg) *a += (*a_trg - *a) / (ui.param[n] / 10.0);
+  if (*a != *a_trg)
+  {
+    if (fabs(*a - *a_trg) < 0.15) *a = *a_trg;
+    else *a += (*a_trg - *a) / (ui.param[n] / 10.0);
+  }
 }
 
 //消失函数
