@@ -8,10 +8,6 @@
     * 分辨率 128 * 64 ：主菜单模仿 UltraLink 重新设计，去掉了小标题，电压测量页重新设计，关于本机页面改为列表，列表适配了该分辨率
     * 分辨率 128 * 32 ：在 128 * 64 分辨率的基础上，主界面只保留图标，电压测量页重新设计
     * 通用版本：仅保留列表，主菜单也改为列表，删除电压测量页和与列表无关的动画（保留弹窗效果），经过简单修改可以适配任何分辨率，任何行高度的情况
-  
-  WouoUI v2.2 更新内容：
-
-    * 优化动画函数，动画结束后不会再进行无意义的浮点数计算
 
   WouoUI v2 功能：
 
@@ -277,13 +273,13 @@ M_SELECT setting_menu[]
 M_SELECT about_menu[]
 {
   {"WouoUI"},
-  {"v2.2"},
+  {"v2.3"},
   {"Board: STM32F103"},
   {"Ram: 20k"},
   {"Flash: 64k"},
   {"Freq: 72Mhz"},
   {"Creator: RQNG"},
-  {"Billi UID: 9182439"},  
+  {"Bili UID: 9182439"},  
 };
 
 /************************************* 图片内容 *************************************/
@@ -452,7 +448,7 @@ struct
 #define   LIST_LINE_H         16                          //列表单行高度
 #define   LIST_TEXT_S         4                           //列表每行文字的上边距，左边距和右边距，下边距由它和字体高度和行高度决定
 #define   LIST_BAR_W          5                           //列表进度条宽度，需要是奇数，因为正中间有1像素宽度的线
-#define   LIST_BOX_R          0.5                         //列表选择框圆角
+#define   LIST_BOX_R          0.5f                        //列表选择框圆角
 
 /*
 //超窄行高度测试
@@ -461,7 +457,7 @@ struct
 #define   LIST_LINE_H         7                           //列表单行高度
 #define   LIST_TEXT_S         1                           //列表每行文字的上边距，左边距和右边距，下边距由它和字体高度和行高度决定
 #define   LIST_BAR_W          7                           //列表进度条宽度，需要是奇数，因为正中间有1像素宽度的线
-#define   LIST_BOX_R          0.5                         //列表选择框圆角
+#define   LIST_BOX_R          0.5f                        //列表选择框圆角
 */
 struct
 {
@@ -962,8 +958,8 @@ void animation(float *a, float *a_trg, uint8_t n)
 {
   if (*a != *a_trg)
   {
-    if (fabs(*a - *a_trg) < 0.15) *a = *a_trg;
-    else *a += (*a_trg - *a) / (ui.param[n] / 10.0);
+    if (fabs(*a - *a_trg) < 0.15f) *a = *a_trg;
+    else *a += (*a_trg - *a) / (ui.param[n] / 10.0f);
   }
 }
 
@@ -1205,7 +1201,7 @@ void volt_show()
   u8g2.setFontDirection(0);
   u8g2.setFont(VOLT_FONT); 
   u8g2.setCursor(23, VOLT_LIST_U_S - 12);
-  u8g2.print(volt.val / 4096.0 * 3.3);
+  u8g2.print(volt.val / 4096.0f * 3.3f);
   u8g2.print("V");
 
   //绘制列表选择框和电压文字背景
