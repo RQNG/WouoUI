@@ -1,6 +1,6 @@
 
 /*
-  WouoUI - osu 是 WouoUI 通用版本的分支，模仿 osu! 这款音乐播放器的选歌界面，当前版本 v1.1
+  WouoUI - osu 是 WouoUI 通用版本的分支，模仿 osu! 这款音乐播放器的选歌界面
   
   此版本继承了通用的特性，即支持任意行高，任意字高，任意屏幕分辨率，这个版本增加支持调整抛物线曲率
 
@@ -10,10 +10,6 @@
     * 分辨率 128 * 64 ：主菜单模仿 UltraLink 重新设计，去掉了小标题，电压测量页重新设计，关于本机页面改为列表，列表适配了该分辨率
     * 分辨率 128 * 32 ：在 128 * 64 分辨率的基础上，主界面只保留图标，电压测量页重新设计
     * 通用版本：仅保留列表，主菜单也改为列表，删除电压测量页和与列表无关的动画（保留弹窗效果），经过简单修改可以适配任何分辨率，任何行高度的情况
-
-  WouoUI - osu v1.3 更新内容：
-
-    * 优化动画函数，动画结束后不会再进行无意义的浮点数计算
 
   WouoUI v2 功能：
 
@@ -277,13 +273,13 @@ M_SELECT setting_menu[]
 M_SELECT about_menu[]
 {
   {"[ WouoUI - osu ]"},
-  {"- Version: v1.3"},
+  {"- Version: v1.4"},
   {"- Board: STM32F103"},
   {"- Ram: 20k"},
   {"- Flash: 64k"},
   {"- Freq: 72Mhz"},
   {"- Creator: RQNG"},
-  {"- Billi UID: 9182439"},  
+  {"- Bili UID: 9182439"},  
 };
 
 /************************************* 页面变量 *************************************/
@@ -334,7 +330,7 @@ struct
 #define   LIST_LINE_H         16                          //列表单行高度
 #define   LIST_TEXT_S         4                           //列表每行文字的上边距，左边距和右边距，下边距由它和字体高度和行高度决定
 #define   LIST_BAR_W          5                           //列表进度条宽度，需要是奇数，因为正中间有1像素宽度的线
-#define   LIST_BOX_R          0.5                         //列表选择框圆角
+#define   LIST_BOX_R          0.5f                        //列表选择框圆角
 */
 
 //超窄行高度测试
@@ -343,7 +339,7 @@ struct
 #define   LIST_LINE_H         7                           //列表单行高度
 #define   LIST_TEXT_S         1                           //列表每行文字的上边距，左边距和右边距，下边距由它和字体高度和行高度决定
 #define   LIST_BAR_W          7                           //列表进度条宽度，需要是奇数，因为正中间有1像素宽度的线
-#define   LIST_BOX_R          0.5                         //列表选择框圆角
+#define   LIST_BOX_R          0.5f                        //列表选择框圆角
 
 struct
 {
@@ -751,8 +747,8 @@ void animation(float *a, float *a_trg, uint8_t n)
 {
   if (*a != *a_trg)
   {
-    if (fabs(*a - *a_trg) < 0.15) *a = *a_trg;
-    else *a += (*a_trg - *a) / (ui.param[n] / 10.0);
+    if (fabs(*a - *a_trg) < 0.15f) *a = *a_trg;
+    else *a += (*a_trg - *a) / (ui.param[n] / 10.0f);
   }
 }
 
@@ -858,7 +854,7 @@ void list_show(struct MENU arr[], uint8_t ui_index)
     {
       if (ui.param[LIST_UFD]) list.temp = i * list.y - LIST_LINE_H * ui.select[ui.layer];
       else list.temp = (i - ui.select[ui.layer]) * list.y;
-      list.curve = (ui.param[LIST_CUR] / 1000.0) * pow(list.temp, 2);
+      list.curve = (ui.param[LIST_CUR] / 1000.0f) * pow(list.temp, 2);
       list_draw_text_and_check_box(arr, i);
     }
     if (list.y == list.y_trg) 
@@ -870,7 +866,7 @@ void list_show(struct MENU arr[], uint8_t ui_index)
   else for (int i = 0; i < ui.num[ui_index]; ++ i)
   {
     list.temp = LIST_LINE_H * i + list.y;
-    list.curve = (ui.param[LIST_CUR] / 1000.0) * pow(list.temp, 2);
+    list.curve = (ui.param[LIST_CUR] / 1000.0f) * pow(list.temp, 2);
     list_draw_text_and_check_box(arr, i);
   }
 
