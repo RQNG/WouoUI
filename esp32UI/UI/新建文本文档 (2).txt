@@ -1,0 +1,80 @@
+以下是使用ESP32和U8g2库在OLED上显示日期和时间的示例代码：
+
+```c++
+#include <U8g2lib.h>
+#include <WiFi.h>
+#include <time.h>
+
+// Replace with your network credentials
+const char* ssid = "your_SSID";
+const char* password = "your_PASSWORD";
+
+// Define OLED pins
+#define OLED_SDA 21
+#define OLED_SCL 22
+#define OLED_RST 16
+
+// Define OLED object
+U8G2_SSD1306_128X64_NONAME_F_SW_I2C u8g2(U8G2_R0, OLED_SCL, OLED_SDA, OLED_RST);
+
+void setup() {
+  // Start serial communication
+  Serial.begin(115200);
+
+  // Connect to Wi-Fi network
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting to Wi-Fi");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting...");
+  }
+
+  Serial.println("Connected to Wi-Fi");
+
+  // Initialize time
+  configTime(0, 0, "pool.ntp.org");
+  Serial.println("Waiting for time");
+
+  while (!time(nullptr)) {
+    delay(1000);
+    Serial.println("Waiting...");
+  }
+
+  Serial.println("Time synchronized");
+
+  // Initialize OLED display
+  u8g2.begin();
+  u8g2.setFont(u8g2_font_ncenB08_tr);
+}
+
+void loop() {
+  // Get current time
+  time_t now = time(nullptr);
+  struct tm* timeinfo = localtime(&now);
+
+  // Format date and time
+  char date[20];
+  strftime(date, sizeof(date), "%Y-%m-%d", timeinfo);
+
+  char time[20];
+  strftime(time, sizeof(time), "%H:%M:%S", timeinfo);
+
+  // Clear OLED display
+  u8g2.clearBuffer();
+
+  // Display date and time
+  u8g2.setCursor(0, 20);
+  u8g2.print(date);
+  u8g2.setCursor(0, 40);
+  u8g2.print(time);
+
+  // Send display buffer to OLED
+  u8g2.sendBuffer();
+
+  // Wait for 1 second
+  delay(1000);
+}
+```
+
+在此示例代码中，我们首先连接到Wi-Fi网络，然后使用NTP服务器同步时间。然后，我们初始化OLED显示器并在循环中获取当前时间并将其格式化为日期和时间。最后，我们在OLED上显示日期和时间，并等待1秒钟。
