@@ -88,6 +88,11 @@
   4. 知名音乐播放器：osu!
   5. macOS 程序坞
 
+# 赛博乞讨（划掉
+开发不易，如果有帮到你，请我喝杯咖啡可好
+![1697424547928](https://github.com/RQNG/WouoUI/assets/115459678/23fd1646-a1e7-4b15-83ce-af2113f7b1b1)
+
+
 # 更新
 ## WouoUI
 
