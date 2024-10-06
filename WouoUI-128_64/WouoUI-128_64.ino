@@ -889,7 +889,7 @@ void animation(float *a, float *a_trg, uint8_t n)
 {
   if (*a != *a_trg)
   {
-    if (fabs(*a - *a_trg) < 0.15f) *a = *a_trg;
+    if (fabs(*a - *a_trg) < 1.0f) *a = *a_trg;
     else *a += (*a_trg - *a) / (ui.param[n] / 10.0f);
   }
 }
